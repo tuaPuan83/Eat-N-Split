@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import './App.css'
-import Button from './Button';
-import FormAddFriend from './FormAddFriend';
-import FormSplitBill from './FormSplitBill';
-import FriendsList from './FriendsList';
+import { useState } from "react";
+import "./App.css";
+import Button from "./Button";
+import FormAddFriend from "./FormAddFriend";
+import FormSplitBill from "./FormSplitBill";
+import FriendsList from "./FriendsList";
 
 const initialFriends = [
   {
@@ -26,25 +26,39 @@ const initialFriends = [
   },
 ];
 
-
 function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
 
-  const [showAddFriend, setShowAddFriend] = useState(false)
+  const [friends, setFriends] = useState(initialFriends);
+
+  const [selectedFriends, setSelectedFriends] = useState(null);
 
   function handleShowAddFriend() {
-    setShowAddFriend(showAddFriend=>!showAddFriend)
+    setShowAddFriend((showAddFriend) => !showAddFriend);
+  }
+
+  function handleAddFriend(friend) {
+    setFriends((friends) => [...friends, friend]);
+
+    setShowAddFriend(false);
+  }
+
+  function handleSelection(friend) {
+    setSelectedFriends(friend);
   }
 
   return (
-    <div className='app'>
+    <div className="app">
       <div className="sidebar">
-      <FriendsList friends={initialFriends}/>
-      {showAddFriend && <FormAddFriend/>}
-      <Button onClick={handleShowAddFriend}>{showAddFriend ? 'Close' : 'Add Friend'}</Button>
+        <FriendsList friends={friends} onSelection={handleSelection} />
+        {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
+        <Button onClick={handleShowAddFriend}>
+          {showAddFriend ? "Close" : "Add Friend"}
+        </Button>
       </div>
-      <FormSplitBill/>
+      {selectedFriends && <FormSplitBill selectedFriends={selectedFriends} />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -3,29 +3,29 @@ import FriendsList from "./FriendsList";
 import Friend from "./Friend";
 import Button from "./Button";
 
-function FormSplitBill() {
-    return (
-        <form action="" className="form-split-bill">
-            <h2>Split Bill with X</h2>
+function FormSplitBill({ selectedFriends }) {
+  return (
+    <form action="" className="form-split-bill">
+      <h2>Split Bill with {selectedFriends.name}</h2>
 
-            <label htmlFor="">🏦 Bill Value</label>
-            <input type="text" name="" id="" />
+      <label htmlFor="">🏦 Bill Value</label>
+      <input type="text" name="" id="" />
 
-            <label htmlFor="">∏💴 Your Expense</label>
-            <input type="text" name="" id="" />
+      <label htmlFor="">∏💴 Your Expense</label>
+      <input type="text" name="" id="" />
 
-            <label htmlFor="">💁 X's Expense</label>
-            <input type="text" name="" id="" disabled />
+      <label htmlFor="">💁 {selectedFriends.name}'s Expense</label>
+      <input type="text" name="" id="" disabled />
 
-            <label htmlFor="">❓ Who is paying the bill</label>
-            <select name="" id="">
-                <option value="user">You</option>
-                <option value="friend">X</option>
-            </select>
+      <label htmlFor="">❓ Who is paying the bill</label>
+      <select name="" id="">
+        <option value="user">You</option>
+        <option value="friend">{selectedFriends.name}</option>
+      </select>
 
-            <Button>Split Bill</Button>
-        </form>
-    )
+      <Button>Split Bill</Button>
+    </form>
+  );
 }
 
 export default FormSplitBill;
